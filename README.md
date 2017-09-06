@@ -7,9 +7,12 @@ This allows easy integrations with other applications running on the RPI.
 
 The project works on Raspberry Pi Boards.
 It must be run as root: sudo node neopixel_server.js.
-The server listen on all interface: it's easy to change the code in order to run just locally, search and replace the code:
+The server listen on all interface: it's easy to change the code in order to run the server only on localhost; search and replace the code:
+
 --> app.listen(8083);
+
 with		
+
 --> app.listen(8083,'localhost');
 		
 # Schematics
