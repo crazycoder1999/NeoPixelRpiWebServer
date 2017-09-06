@@ -1,0 +1,21 @@
+{
+  "name": "neopixelwebserver",
+  "version": "1.0.0",
+  "description": "A webserver built with express, to control single led on neopixel throught a rest api",
+  "main": "neopixel_server.js",
+  "dependencies": {
+    "express": "^4.15.4",
+    "rpi-ws281x-native": "^0.8.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "neopixel",
+    "raspberrypi",
+    "pizero"
+  ],
+  "author": "Andrea De Gaetano",
+  "license": "ISC"
+}
