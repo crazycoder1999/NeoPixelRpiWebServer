@@ -17,11 +17,40 @@ process.on('SIGINT', function () {
   process.nextTick(function () { process.exit(0); });
 });
 
-
 app.get('/switchAllOff', function (req, res) {
 	switchAllLedOff();
 	res.type("application/json");
 	res.send('{"status":"ok"}');
+});
+
+app.get('/changeLedInRange',function (req,res){
+	var from = parseInt(req.query.from);
+	var to  = parseInt(req.query.to);
+	var red = req.query.red;
+	var green = req.query.green;
+	var blue = req.query.blue;
+	var brightness = parseInt(req.query.brightness);
+	if(
+			( from === undefined || from < 0 || from > NUM_LEDS-1 ) ||
+			( to === undefined || to < 0 || to > NUM_LEDS-1 ) ||
+			( from >= to ) ||
+			( red === undefined || red < 0 || red > 255 ) ||
+			( green === undefined || green < 0 || green > 255 ) ||
+			( blue === undefined || blue < 0 || blue > 255 ) ||
+			( brightness === undefined || brightness < 0 || brightness > 100 )) {
+			res.send("{}");
+			return;
+	}
+
+	ws281x.setBrightness(brightness);
+	for(var ledId = from;ledId<=to;ledId++) {
+			var color = rgb2Int(red,green,blue);
+			pixelData[ledId] = color;
+	}
+	ws281x.render(pixelData);
+	res.type("application/json");
+	res.send('{"status": "ok"}');
+	return;
 });
 
 app.get('/changeLed',function (req,res){
